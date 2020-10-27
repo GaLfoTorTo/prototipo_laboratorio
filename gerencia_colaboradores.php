@@ -9,8 +9,10 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 
 	$sql = "DELETE FROM colaboradores WHERE id = {$id}";
 
+	$qr = mysqli_query($conexao, $sql);
 
-	if(mysqli_query($conexao, $sql)) {
+
+	if($qr) {
 		$mensagem = 'Excluído com sucesso!';
 		$alert = 'success';
 
@@ -19,7 +21,6 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 		$alert = 'danger';
 
 	}
-
 
 	header("Location: colaboradores.php?mensagem={$mensagem}&alert={$alert}");
 } else if($acao == 'salvar') {
@@ -46,7 +47,7 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 	$estado = $_POST['estado'];
 
 	if($nome == '' || $cpf == '' || $senha == '' || $email == '' ) {
-		$mensagem = "Nome, CPF, email e senha são obrigatórios!";
+		$mensagem = "Nome, CPF, Email e Senha são obrigatórios!";
 
 		header("Location: form_usuario.php?mensagem={$mensagem}&alert=danger");
 		exit;
@@ -54,20 +55,18 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 
 
 
-	$sql = "INSERT INTO colaboradores 
-			(nome, 
-			cpf, 
-			email, 
-			telefone, 
-			logradouro, 
-			numero, 
-			complemento, 
-			bairro, 
-			cidade, 
-			estado, 
-			senha) 
-			VALUES
-			('$nome', '$cpf', '$email', '$telefone', '$logradouro','$numero', '$complemento', '$bairro', '$cidade', '$estado', '$senha');";
+	$sql = "INSERT INTO clientes 
+			(nome,
+			cpf,
+			email,
+			telefone,
+			logradouro,
+			numero,
+			complemento,
+			bairro,
+			cidade,
+			estado,
+			senha) VALUES ('$nome','$cpf','$email','$telefone','$logradouro','$numero','$complemento','$bairro','$cidade','$estado','$senha);";
 
 
 	mysqli_query($conexao, $sql);

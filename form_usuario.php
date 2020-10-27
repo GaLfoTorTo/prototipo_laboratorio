@@ -8,7 +8,7 @@ include_once('layout/sidebar.php');
    <?php include_once('layout/mensagens.php'); ?>
   <div class="card">
     <div class="card-body">
-     <form action="gerencia_colaboradores.php?acao=salvar" method="post">
+     <form method="post" action="gerencia_colaboradores.php?acao=salvar">
      <h5 id="">Dados de Login</h5>
      <br />
       <div class="row">

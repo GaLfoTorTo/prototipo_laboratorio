@@ -5,6 +5,7 @@ include_once('layout/sidebar.php');
 ?>
 <div class="col">
   <h2>Nova categoria</h2>
+  <?php include_once('layout/mensagens.php'); ?>
   <div class="card">
     <div class="card-body">
      <form method="post" action="gerencia_categorias.php?acao=salvar">

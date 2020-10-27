@@ -9,24 +9,31 @@ include_once('layout/sidebar.php');
     <div class="card-body">
      <form>
        <div class="row">
-         <div class="col-md-3 col-sm-12">
+         <div class="col-md-4 col-sm-12">
            <div class="form-group">
              <label for="cpf">CPF:</label>
              <input type="text" name="cpf" id="cpf" class="form-control">
            </div>
          </div>
-         <div class="col-md-9 col-sm-12">
+         <div class="col-md-7 col-sm-12">
            <div class="form-group">
              <label for="nome">Nome:</label>
              <input type="text" name="nome" id="nome" class="form-control">
            </div>
+          </div>
+          <div class="col-md-1 col-sm-12">
+            <div class="form-group">
+              <label for="nome">Usuário</label>
+              <input type="text" name="usuario_id" value="1" placeholder="" class="form-control" readonly="">
+            </div>
+          </div>
          </div>
        </div>
        <div class="row">
          <div class="col-md-6 col-sm-12">
            <div class="form-group">
              <label for="telefone">Telefone:</label>
-             <input type="text" name="telefone" id="telefone" class="form-control">
+             <input type="text" name="telefone" id="telefone" class="form-control fone">
            </div>
          </div>
          <div class="col-md-6 col-sm-12">
@@ -55,7 +62,7 @@ include_once('layout/sidebar.php');
          <div class="col-md-3 col-sm-12">
            <div class="form-group">
              <label for="cep">CEP:</label>
-             <input type="text" name="cep" id="cep" class="form-control">
+             <input type="text" name="cep" id="cep" class="form-control cep">
            </div>
          </div>
          <div class="col-md-6 col-sm-12">

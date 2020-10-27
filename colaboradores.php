@@ -1,10 +1,19 @@
 <?php 
+include_once('bd/conexao.php');
 include_once('layout/header.php');
 include_once('layout/menu.php');
 include_once('layout/sidebar.php');
+
+$sql = "SELECT * FROM colaboradores;";
+$qr = mysqli_query($conexao, $sql);
+$colaboradores = mysqli_fetch_all($qr, MYSQLI_ASSOC);
+
 ?>
 <div class="col">
-<h2>Colaboradores</h2>
+<h2 class="titulo">Colaboradores</h2>
+<span class="badge badge-info totais">Total: <?php echo count($colaboradores); ?></span>
+<div class="clear"></div>
+<?php include_once('layout/mensagens.php'); ?>
   <div class="card">
     <div class="card-body">
       <a href="form_usuario.php" class="btn btn-primary" style="float: right">
@@ -18,16 +27,17 @@ include_once('layout/sidebar.php');
       <table class="table table-striped table-hover">
         <tr>
           <th>Nome</th>
-          <th>Código</th>
+          <th>CPF</th>
           <th>Email</th>
           <th>Telefone</th>
           <th class="acao">Ação</th>
         </tr>
+        <?php foreach($colaboradores as $chave => $colaborador): ?>
         <tr>
-          <td>nome</td>
-          <td>código</td>
-          <td>email</td>
-          <td>telefone</td>
+          <td><?= $colaborador['nome'] ?></td>
+          <td><?= $colaborador['cpf'] ?></td>
+          <td><?= $colaborador['email'] ?></td>
+          <td><?= $colaborador['telefone'] ?></td>
           <td>
             <a href="#" class="btn btn-success">
               <i class="fas fa-eye"></i>
@@ -35,62 +45,12 @@ include_once('layout/sidebar.php');
             <a href="#" class="btn btn-warning">
               <i class="fas fa-edit"></i>
             </a>
-            <a href="#" class="btn btn-danger">
+            <a href="gerencia_colaboradores.php?id=<?php echo $colaborador['id']; ?>&acao=deletar" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">
               <i class="fas fa-trash"></i>
             </a>
           </td>
         </tr>
-        <tr>
-          <td>nome</td>
-          <td>código</td>
-          <td>email</td>
-          <td>telefone</td>
-          <td>
-            <a href="#" class="btn btn-success">
-              <i class="fas fa-eye"></i>
-            </a>
-            <a href="#" class="btn btn-warning">
-              <i class="fas fa-edit"></i>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <i class="fas fa-trash"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>nome</td>
-          <td>código</td>
-          <td>email</td>
-          <td>telefone</td>
-          <td>
-            <a href="#" class="btn btn-success">
-              <i class="fas fa-eye"></i>
-            </a>
-            <a href="#" class="btn btn-warning">
-              <i class="fas fa-edit"></i>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <i class="fas fa-trash"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>nome</td>
-          <td>código</td>
-          <td>email</td>
-          <td>telefone</td>
-          <td>
-            <a href="#" class="btn btn-success">
-              <i class="fas fa-eye"></i>
-            </a>
-            <a href="#" class="btn btn-warning">
-              <i class="fas fa-edit"></i>
-            </a>
-            <a href="#" class="btn btn-danger">
-              <i class="fas fa-trash"></i>
-            </a>
-          </td>
-        </tr>
+      <?php endforeach; ?>
       </table>
 
       <nav aria-label="Navegação de página exemplo" class="pagination">

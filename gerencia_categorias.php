@@ -2,7 +2,6 @@
 include_once('bd/conexao.php');
 
 $acao = $_GET['acao'] ?? 'redirect';
-
 //deletar, salvar, alterar
 
 if(isset($_GET['id']) && $acao == 'deletar') {
@@ -15,16 +14,19 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 	$mensagem = 'Excluído com sucesso!';
 
 	header("Location: categorias.php?mensagem={$mensagem}&alert=success");
-}else if($acao == 'salvar'){
+} else if($acao == 'salvar') {
+
 	$categoria = $_POST['categoria'];
 
-	$sql = "INSERT INTO categoria (categoria) VALUES ('$categoria);";
+	$sql = "INSERT INTO categoria (categoria) VALUES ('$categoria');";
 
-	mysql_query($conexao, $sql);
+	mysqli_query($conexao, $sql);
 
-	$mensagem = 'salvo com sucessso';
+	$mensagem = 'Salvo com sucesso!';
 
-	header('location: categoria.php?mensagem={$mensagem}alert=success') 
+	header("Location: categorias.php?mensagem={$mensagem}&alert=success");
 }
 
-?>
+
+
+ ?>

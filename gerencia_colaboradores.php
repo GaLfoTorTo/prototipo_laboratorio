@@ -55,7 +55,7 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 
 
 
-	$sql = "INSERT INTO clientes 
+	$sql = "INSERT INTO colaboradores 
 			(nome,
 			cpf,
 			email,
@@ -66,7 +66,7 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 			bairro,
 			cidade,
 			estado,
-			senha) VALUES ('$nome','$cpf','$email','$telefone','$logradouro','$numero','$complemento','$bairro','$cidade','$estado','$senha);";
+			senha) VALUES ('$nome','$cpf','$email','$telefone','$logradouro','$numero','$complemento','$bairro','$cidade','$estado','$senha');";
 
 
 	mysqli_query($conexao, $sql);

@@ -39,7 +39,7 @@ $colaboradores = mysqli_fetch_all($qr, MYSQLI_ASSOC);
           <td><?= $colaborador['email'] ?></td>
           <td><?= $colaborador['telefone'] ?></td>
           <td>
-            <a href="#" class="btn btn-secondary">
+            <a href="#" class="btn btn-success">
               <i class="fas fa-eye"></i>
             </a>
             <a href="#" class="btn btn-warning">

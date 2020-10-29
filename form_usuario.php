@@ -8,7 +8,7 @@ include_once('layout/sidebar.php');
    <?php include_once('layout/mensagens.php'); ?>
   <div class="card">
     <div class="card-body">
-     <form method="post" action="gerencia_colaboradores.php?acao=salvar">
+     <form action="gerencia_colaboradores.php?acao=salvar" method="post">
      <h5 id="">Dados de Login</h5>
      <br />
       <div class="row">
@@ -145,7 +145,8 @@ include_once('layout/sidebar.php');
        </div>
 
      </form>
-
+<!-- <input type="text" name="usuario_id" value="1" placeholder="" >
+<input type="text" name="categoria_id" value="1" placeholder=""> -->
 
     </div>
   </div>

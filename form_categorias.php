@@ -5,7 +5,6 @@ include_once('layout/sidebar.php');
 ?>
 <div class="col">
   <h2>Nova categoria</h2>
-  <?php include_once('layout/mensagens.php'); ?>
   <div class="card">
     <div class="card-body">
      <form method="post" action="gerencia_categorias.php?acao=salvar">
@@ -14,6 +13,17 @@ include_once('layout/sidebar.php');
            <div class="form-group">
              <label for="categoria">Categoria:</label>
              <input type="text" name="categoria" id="categoria" class="form-control">
+           </div>
+         </div>
+         <div class="col-md-6 col-sm-12">
+           <div class="form-group">
+             <label for="tipo">Tipo:</label>
+             <select name="tipo" class="form-control">
+               <option value="Equipamentos">Equipamentos</option>
+               <option value="Produtos">Produtos</option>
+               <option value="Serviços">Serviços</option>
+               option
+             </select>
            </div>
          </div>
        </div>

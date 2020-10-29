@@ -2,7 +2,8 @@
 include_once('bd/conexao.php');
 
 //Monta a consulta a ser executada
-$sql = "SELECT * FROM servicos";
+$sql = "SELECT s.*, c.categoria FROM servicos s
+LEFT JOIN categoria c ON s.categoria_id = c.id";
 
 //Execução da consulta ao banco de dados
 $qr = mysqli_query($conexao, $sql);
@@ -10,19 +11,18 @@ $qr = mysqli_query($conexao, $sql);
 //Armazenando o resultado em uma variável
 $servicos = mysqli_fetch_all($qr, MYSQLI_ASSOC);
 
+
 include_once('layout/header.php');
 include_once('layout/menu.php');
 include_once('layout/sidebar.php');
 ?>
+
 <div class="col">
 <h2 class="titulo">Serviços</h2>
 <span class="badge badge-info totais">Total: <?php echo count($servicos); ?></span>
 <div class="clear"></div>
-<?php if(isset($_GET['mensagem'])): ?>
-    <div class="alert alert-<?php echo $_GET['alert'] ?? 'success'; ?>" id="alert-mensagem">
-      <?php echo $_GET['mensagem']; ?>
-    </div>
-  <?php endif; ?>
+  <?php include_once('layout/mensagens.php'); ?>
+
     <div class="card">
       <div class="card-body">
 
@@ -52,7 +52,7 @@ include_once('layout/sidebar.php');
         <td><?= $servico['nome'] ?></td>
         <td><?= $servico['descricao'] ?></td>
         <td><?= number_format($servico['preco'],2,',','.') ?></td>
-        <td><?= $servico['categoria_id'] ?></td>
+        <td><?= $servico['categoria'] ?></td>
         <td>
           <a href="#" class="btn btn-secondary">
             <i class="fas fa-eye"></i>
@@ -82,5 +82,6 @@ include_once('layout/sidebar.php');
       </div>
     </div>
   </div>
-<?php include_once('layout/footer.php');
+<?php include_once('layout/footer.php')
+
 ?>

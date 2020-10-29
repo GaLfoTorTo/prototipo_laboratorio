@@ -9,10 +9,8 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 
 	$sql = "DELETE FROM colaboradores WHERE id = {$id}";
 
-	$qr = mysqli_query($conexao, $sql);
 
-
-	if($qr) {
+	if(mysqli_query($conexao, $sql)) {
 		$mensagem = 'Excluído com sucesso!';
 		$alert = 'success';
 
@@ -21,6 +19,7 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 		$alert = 'danger';
 
 	}
+
 
 	header("Location: colaboradores.php?mensagem={$mensagem}&alert={$alert}");
 } else if($acao == 'salvar') {
@@ -40,6 +39,7 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 	$email = $_POST['email'];
 	$telefone = $_POST['telefone'];
 	$logradouro = $_POST['logradouro'];
+	$cep = $_POST['cep'];
 	$numero = $_POST['numero'];
 	$complemento = $_POST['complemento'];
 	$bairro = $_POST['bairro'];
@@ -47,7 +47,7 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 	$estado = $_POST['estado'];
 
 	if($nome == '' || $cpf == '' || $senha == '' || $email == '' ) {
-		$mensagem = "Nome, CPF, Email e Senha são obrigatórios!";
+		$mensagem = "Nome, CPF, email e senha são obrigatórios!";
 
 		header("Location: form_usuario.php?mensagem={$mensagem}&alert=danger");
 		exit;
@@ -56,24 +56,32 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 
 
 	$sql = "INSERT INTO colaboradores 
-			(nome,
-			cpf,
-			email,
-			telefone,
-			logradouro,
-			numero,
-			complemento,
-			bairro,
-			cidade,
-			estado,
-			senha) VALUES ('$nome','$cpf','$email','$telefone','$logradouro','$numero','$complemento','$bairro','$cidade','$estado','$senha');";
+			(nome, 
+			cpf, 
+			email, 
+			telefone, 
+			cep, 
+			logradouro, 
+			numero, 
+			complemento, 
+			bairro, 
+			cidade, 
+			estado, 
+			senha) 
+			VALUES
+			('$nome', '$cpf', '$email', '$telefone', '$cep','$logradouro','$numero', '$complemento', '$bairro', '$cidade', '$estado', '$senha');";
 
 
-	mysqli_query($conexao, $sql);
+	if(mysqli_query($conexao, $sql)) {
+		$mensagem = 'Salvo com sucesso!';
+		$alert = 'success';
 
-	$mensagem = 'Salvo com sucesso!';
+	}else {
+		$mensagem = 'Erro ao salvar: ' . mysqli_error($conexao);
+		$alert = 'danger';
+	}
 
-	header("Location: colaboradores.php?mensagem={$mensagem}&alert=success");
+	header("Location: colaboradores.php?mensagem={$mensagem}&alert=$alert");
 }
 
 

@@ -13,6 +13,7 @@ if(isset($_GET['id']) && $_GET['id'] != '') {
 include_once('layout/header.php');
 include_once('layout/menu.php');
 include_once('layout/sidebar.php');
+include_once('bd/estados.php');
 ?>
 <div class="col">
   <h2>Novo cliente</h2>
@@ -50,7 +51,7 @@ include_once('layout/sidebar.php');
            <div class="form-group">
              <label for="email">E-mail:</label>
              <input type="email" name="email" id="email" class="form-control" required value="<?php echo ($cliente != '' ? $cliente['email'] : ''); ?>">
-           ;</div>
+           </div>
          </div>
        </div>
        <div class="row">
@@ -112,33 +113,9 @@ include_once('layout/sidebar.php');
              <label for="estado">Estado:</label>
              <select name="estado" class="form-control" id="estado">
                <option value=""></option>
-               <option value="AC">AC</option>
-               <option value="AL">AL</option>
-               <option value="AP">AP</option>
-               <option value="AM">AM</option>
-               <option value="BA">BA</option>
-               <option value="CE">CE</option>
-               <option value="DF">DF</option>
-               <option value="ES">ES</option>
-               <option value="GO">GO</option>
-               <option value="MA">MA</option>
-               <option value="MT">MT</option>
-               <option value="MS">MS</option>
-               <option value="MG">MG</option>
-               <option value="PA">PA</option>
-               <option value="PB">PB</option>
-               <option value="PR">PR</option>
-               <option value="PE">PE</option>
-               <option value="PI">PI</option>
-               <option value="RJ">RJ</option>
-               <option value="RN">RN</option>
-               <option value="RS">RS</option>
-               <option value="RO">RO</option>
-               <option value="RR">RR</option>
-               <option value="SC">SC</option>
-               <option value="SP">SP</option>
-               <option value="SE">SE</option>
-               <option value="TO">TO</option>
+               <?php foreach ($estados as $estado): ?>
+                <option value="<?php echo $estado['sigla'] ?>" <?php echo ($cliente != '' && $cliente['estado'] == $estado['sigla'] ? 'selected' : ''); ?>><?php echo $estado['sigla'] ?></option>
+              <?php endforeach; ?>
              </select>
            </div>
          </div>

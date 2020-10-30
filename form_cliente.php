@@ -1,17 +1,13 @@
 <?php 
 include_once('bd/conexao.php');
 
-$sql = "SELECT * FROM clientes";
-$qr = mysqli_query($conexao, $sql);
-$clientes = mysqli_fetch_all($qr, MYSQLI_ASSOC);
-
 if(isset($_GET['id']) && $_GET['id'] != '') {
-  $sql_cliente = "SELECT * FROM clientes WHERE id = " . $_GET['id'];
-  $qr_cliente = mysqli_query($conexao, $sql_cliente);
-  $client = mysqli_fetch_assoc($qr_cliente);
+  $sql = "SELECT * FROM clientes WHERE id = " . $_GET['id'];
+  $qr = mysqli_query($conexao, $sql);
+  $cliente = mysqli_fetch_assoc($qr);
 
 }else {
-  $client = '';
+  $cliente = '';
 }
 
 include_once('layout/header.php');
@@ -28,17 +24,17 @@ include_once('layout/sidebar.php');
          <div class="col-md-4 col-sm-12">
            <div class="form-group">
              <label for="cpf">CPF:</label>
-             <input type="text" name="cpf" id="cpf" class="form-control cpf" required value="<?php echo ($client != '' ? $client['cpf'] : ''); ?>">
+             <input type="text" name="cpf" id="cpf" class="form-control cpf" required value="<?php echo ($cliente != '' ? $cliente['cpf'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-8 col-sm-12">
            <div class="form-group">
              <label for="nome">Nome:</label>
-             <input type="text" name="nome" id="nome" class="form-control" required value="<?php echo ($client != '' ? $client['nome'] : ''); ?>">
+             <input type="text" name="nome" id="nome" class="form-control" required value="<?php echo ($cliente != '' ? $cliente['nome'] : ''); ?>">
 
-              <input type="hidden" name="usuario_id" id="usuario" class="form-control" readonly value="<?php echo ($client != '' ? $client['usuario_id'] : ''); ?>">
+              <input type="hidden" name="usuario_id" id="usuario" class="form-control" readonly value="<?php echo ($cliente != '' ? $cliente['usuario_id'] : ''); ?>">
 
-              <input type="hidden" name="id" value="<?php echo ($client != '' ? $client['id'] : ''); ?>" placeholder="">
+              <input type="hidden" name="id" value="<?php echo ($cliente != '' ? $cliente['id'] : ''); ?>" placeholder="">
            </div>
           </div>
          </div>
@@ -47,13 +43,13 @@ include_once('layout/sidebar.php');
          <div class="col-md-6 col-sm-12">
            <div class="form-group">
              <label for="telefone">Telefone:</label>
-             <input type="text" name="telefone" id="telefone" class="form-control fone" value="<?php echo ($client != '' ? $client['telefone'] : ''); ?>">
+             <input type="text" name="telefone" id="telefone" class="form-control fone" value="<?php echo ($cliente != '' ? $cliente['telefone'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-6 col-sm-12">
            <div class="form-group">
              <label for="email">E-mail:</label>
-             <input type="email" name="email" id="email" class="form-control" required value="<?php echo ($client != '' ? $client['email'] : ''); ?>">
+             <input type="email" name="email" id="email" class="form-control" required value="<?php echo ($cliente != '' ? $cliente['email'] : ''); ?>">
            ;</div>
          </div>
        </div>
@@ -61,13 +57,13 @@ include_once('layout/sidebar.php');
          <div class="col-md-6 col-sm-12">
            <div class="form-group">
              <label for="convenio">Convênio:</label>
-             <input type="text" name="convenio" id="convenio" class="form-control" value="<?php echo ($client != '' ? $client['convenio'] : ''); ?>">
+             <input type="text" name="convenio" id="convenio" class="form-control" value="<?php echo ($cliente != '' ? $cliente['convenio'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-6 col-sm-12">
            <div class="form-group">
              <label for="num_convenio">Nº Convênio:</label>
-             <input type="number" name="num_convenio" id="num_convenio" class="form-control" value="<?php echo ($client != '' ? $client['num_convenio'] : ''); ?>">
+             <input type="number" name="num_convenio" id="num_convenio" class="form-control" value="<?php echo ($cliente != '' ? $cliente['num_convenio'] : ''); ?>">
            </div>
          </div>
        </div>
@@ -76,19 +72,19 @@ include_once('layout/sidebar.php');
          <div class="col-md-3 col-sm-12">
            <div class="form-group">
              <label for="cep">CEP:</label>
-             <input type="text" name="cep" id="cep" class="form-control cep" value="<?php echo ($client != '' ? $client['cep'] : ''); ?>">
+             <input type="text" name="cep" id="cep" class="form-control cep" value="<?php echo ($cliente != '' ? $cliente['cep'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-6 col-sm-12">
            <div class="form-group">
              <label for="logradouro">Logradouro:</label>
-             <input type="text" name="logradouro" id="logradouro" class="form-control" value="<?php echo ($client != '' ? $client['logradouro'] : ''); ?>">
+             <input type="text" name="logradouro" id="logradouro" class="form-control" value="<?php echo ($cliente != '' ? $cliente['logradouro'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-3 col-sm-12">
            <div class="form-group">
              <label for="numero">Número:</label>
-             <input type="text" name="numero" id="numero" class="form-control" value="<?php echo ($client != '' ? $client['numero'] : ''); ?>">
+             <input type="text" name="numero" id="numero" class="form-control" value="<?php echo ($cliente != '' ? $cliente['numero'] : ''); ?>">
            </div>
          </div>
        </div>
@@ -96,19 +92,19 @@ include_once('layout/sidebar.php');
          <div class="col-md-4 col-sm-12">
            <div class="form-group">
              <label for="complemento">Complemento:</label>
-             <input type="text" name="complemento" id="complemento" class="form-control" value="<?php echo ($client != '' ? $client['complemento'] : ''); ?>">
+             <input type="text" name="complemento" id="complemento" class="form-control" value="<?php echo ($cliente != '' ? $cliente['complemento'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-3 col-sm-12">
            <div class="form-group">
              <label for="bairro">Bairro:</label>
-             <input type="text" name="bairro" id="bairro" class="form-control" value="<?php echo ($client != '' ? $client['bairro'] : ''); ?>">
+             <input type="text" name="bairro" id="bairro" class="form-control" value="<?php echo ($cliente != '' ? $cliente['bairro'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-3 col-sm-12">
            <div class="form-group">
              <label for="cidade">Cidade:</label>
-             <input type="text" name="cidade" id="cidade" class="form-control" value="<?php echo ($client != '' ? $client['cidade'] : ''); ?>">
+             <input type="text" name="cidade" id="cidade" class="form-control" value="<?php echo ($cliente != '' ? $cliente['cidade'] : ''); ?>">
            </div>
          </div>
          <div class="col-md-2 col-sm-12">

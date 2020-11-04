@@ -49,7 +49,7 @@ $colaboradores = mysqli_fetch_all($qr, MYSQLI_ASSOC);
           <td><?= $colaborador['email'] ?></td>
           <td><?= $colaborador['telefone'] ?></td>
           <td>
-            <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#modalVerDados" onclick="verDados(<?php echo $colaborador['id']; ?>)">
+            <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#modalVerDado" onclick="verDados(<?php echo $colaborador['id']; ?>)">
               <i class="fas fa-eye"></i>
             </a>
             <a href="#" class="btn btn-warning">

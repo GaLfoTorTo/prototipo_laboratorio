@@ -149,3 +149,15 @@ body {
     z-index: 11000;
     width: 46px;
 }
+
+.login {
+	padding: 25px; 
+}
+.login img {
+	margin: 40px auto 0;
+	width: 280px;
+}
+.login h3 {
+	text-align: center;
+	margin: 15px; 
+}

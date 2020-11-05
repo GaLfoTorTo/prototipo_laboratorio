@@ -3,15 +3,15 @@ include_once('bd/conexao.php');
 
 if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 
-	$pesquisa = $_GET['pesquisa'];
+  $pesquisa = $_GET['pesquisa'];
 
-	$sql = "SELECT * FROM clientes 
-			WHERE 
-				nome LIKE '%{$pesquisa}%' OR 
-				email LIKE '%{$pesquisa}%'";
+  $sql = "SELECT * FROM clientes 
+      WHERE 
+        nome LIKE '%{$pesquisa}%' OR 
+        email LIKE '%{$pesquisa}%'";
 
 } else {
-	$sql = "SELECT * FROM clientes;";
+  $sql = "SELECT * FROM clientes;";
 }
 
 
@@ -77,9 +77,9 @@ include_once('layout/sidebar.php');
     <!-- /linha para cada elemento -->
 
   </table>
-  	<?php if(empty($clientes)): ?>
-	  <div class="alert alert-info">Nenhuma informação encontrada.</div>
-	<?php endif; ?>
+    <?php if(empty($clientes)): ?>
+    <div class="alert alert-info">Nenhuma informação encontrada.</div>
+  <?php endif; ?>
 
   <nav aria-label="Navegação de página exemplo">
     <ul class="pagination">

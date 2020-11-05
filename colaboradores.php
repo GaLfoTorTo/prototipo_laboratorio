@@ -49,10 +49,10 @@ $colaboradores = mysqli_fetch_all($qr, MYSQLI_ASSOC);
           <td><?= $colaborador['email'] ?></td>
           <td><?= $colaborador['telefone'] ?></td>
           <td>
-            <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#modalVerDado" onclick="verDados(<?php echo $colaborador['id']; ?>)">
+            <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#modalVerDados" onclick="verDados(<?php echo $colaborador['id']; ?>)">
               <i class="fas fa-eye"></i>
             </a>
-            <a href="#" class="btn btn-warning">
+            <a href="form_usuario.php?id=<?php echo $colaborador['id']; ?>" class="btn btn-warning">
               <i class="fas fa-edit"></i>
             </a>
             <a href="gerencia_colaboradores.php?id=<?php echo $colaborador['id']; ?>&acao=deletar" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">

@@ -39,6 +39,13 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 	}
 
 	header("Location: categorias.php?mensagem={$mensagem}&alert={$alert}");
+}else if(isset($_GET['id']) && $_GET['id'] != '' && $_GET['acao'] == 'get' ) {
+	$id = $_GET['id'];
+	$sql = "SELECT categoria, tipo FROM categoria WHERE id = {$id}";
+	$qr = mysqli_query($conexao, $sql);
+	$categoria = mysqli_fetch_assoc($qr);
+
+	echo json_encode($categoria);
 }
 
 

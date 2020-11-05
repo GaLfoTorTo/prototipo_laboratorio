@@ -53,7 +53,7 @@ include_once('layout/sidebar.php');
       <td><?= $categoria['tipo'] ?></td>
     
       <td>
-        <a href="#" class="btn btn-secondary">
+        <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#modalVerDados" onclick="verDados(<?php echo $categoria['id']; ?>)">
           <i class="fas fa-eye"></i>
         </a>
         <a href="form_categorias.php?id=<?php echo $categoria['id']; ?>" class="btn btn-warning">
@@ -87,3 +87,33 @@ include_once('layout/sidebar.php');
 <?php 
 include_once('layout/footer.php');
 ?>
+<script>
+  function verDados(id) {
+    $.ajax({
+      url: `gerencia_categorias.php?id=${id}&acao=get`,
+      type: 'GET',
+      dataType: 'json',
+      beforeSend: function() {
+        $('#carregando').fadeIn();
+      }
+    })
+    .done(function(dados) {
+      var texto = '';
+      Object.keys(dados).forEach(function(index){
+        var th = index.replace('_', ' ');
+        texto += `<p><strong style="text-transform: capitalize">${th}: </strong> ${dados[index] ?? ''}</p>`;
+      })
+
+      $('#titulo-modal').html(`Categoria: ${dados.categoria}` );
+      $('#corpo-modal').html(texto);
+
+    })
+    .fail(function() {
+      alert('Erro ao buscar os dados.')
+    })
+    .always(function() {
+      $('#carregando').fadeOut();
+    });
+    
+  }
+</script>

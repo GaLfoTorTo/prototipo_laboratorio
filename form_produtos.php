@@ -61,7 +61,7 @@ include_once('layout/sidebar.php');
           <div class="col-md-4 col-sm-12 form-group">
             <label for="nome">Estoque</label>
             <input type="number" name="estoque" placeholder="" class="form-control" value="<?php echo ($produto != '' ? $produto['estoque'] : ''); ?>">
-              <input type="hidden" name="usuario_id"  value="1">   
+              <input type="hidden" name="usuario_id"  value="<?php echo ($produto != '' ? $produto['usuario_id'] : ''); ?>">   
           </div>
         </div>
 

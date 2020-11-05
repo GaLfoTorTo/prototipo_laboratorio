@@ -71,7 +71,7 @@ if(isset($_GET['id']) && $acao == 'deletar') {
 } else if(isset($_GET['id']) && $acao == 'get') {
 	$id = $_GET['id'];
 
-	$sql = "SELECT nome, codigo, estoque, DATE_FORMAT(data_compra, '%d/%m/%Y as %H:%I:%S') as 'Data de compra', CONCAT('R$',FORMAT(preco,2,'pt_BR')) as preco FROM produtos WHERE id = ${id}";
+	$sql = "SELECT nome, codigo, estoque, DATE_FORMAT(data_compra, '%d/%m/%Y as %H:%i:%s') as 'Data de compra', CONCAT('R$',FORMAT(preco,2,'pt_BR')) as preco FROM produtos WHERE id = ${id}";
 	$qr = mysqli_query($conexao, $sql);
 	$produto = mysqli_fetch_assoc($qr);
 	echo json_encode($produto);

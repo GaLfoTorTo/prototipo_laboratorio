@@ -4,7 +4,7 @@
       <div class="col-md-2">
         
       
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="dashboard.php">
         <img src="img/laborus.png" height="36px" alt="">
       </a>
     </div>
@@ -21,7 +21,7 @@
           <a class="nav-link" href="#" id="toggle"><i class="fas fa-bars icone-sidebar"></i></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="index.php">Inicial</a>
+          <a class="nav-link" href="dashboard.php">Inicial</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Mensagens</a>
@@ -43,8 +43,13 @@
 
       </ul>
       <form action="" class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" name="pesquisa" placeholder="Pesquisar" aria-label="Pesquisar">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        <input class="form-control mr-sm-2" type="search" name="pesquisa" placeholder="Pesquisar" aria-label="Pesquisar" value="<?php echo (isset($_GET['pesquisa']) && $_GET['pesquisa'] != '' ? $_GET['pesquisa'] : ''); ?>" autofocus>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+        <a href="?" title="" class="btn btn-outline-warning my-2 my-sm-0" title="Limpar Filtro">
+          <i class="far fa-times-circle"></i>
+        </a>
       </form>
 
       <div class="profile">

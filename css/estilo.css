@@ -12,6 +12,7 @@ body {
 }
 .profile {
 	margin-left: 15px;
+	margin-right: 15px;
 }
 .profile img {
 	width: 45px;
@@ -21,6 +22,10 @@ body {
 }
 .profile .dropdown-toggle::after {
 	color: rgba(255,255,255,.5);
+}
+.profile .dropdown .dropdown-toggle {
+	color: #FFF;
+	text-decoration: none;
 }
 .sidebar {
 	background: rgb(52 58 64);

@@ -1,9 +1,9 @@
 <?php
+include_once('valida_sessao.php');
 include_once('bd/conexao.php');
 
 $acao = $_GET['acao'] ?? 'redirect';
 //deletar, salvar, alterar
-
 if(isset($_GET['id']) && $acao == 'deletar'){
 	$id = $_GET['id'];
 

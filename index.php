@@ -12,6 +12,7 @@ include_once('layout/header.php');
 
      				<h3>Área restrita</h3>
      			<div class="card-body">
+     				<?php include_once('layout/mensagens.php'); ?>
      				<div class="mensagem" style="display: none;"></div>
 
      				<form id="form-login" method="post" onsubmit="return false;">
@@ -85,7 +86,6 @@ include_once('layout/footer.php');
 			.fail(function(data) {
 				var exibirMensagem = `<div class="alert alert-${data.responseJSON.alert}">${data.responseJSON.mensagem}</div>`;
 				$('.mensagem').html(exibirMensagem);
-				$("#email").val('');
 				$("#senha").val('');
 				$("#email").focus();
 				$('#carregando').fadeOut();

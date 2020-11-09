@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start(); 
 include_once('bd/conexao.php');
 
 if((!isset($_POST['email']) && $_POST['email'] != '') 
@@ -32,7 +33,13 @@ if($usuario == null) {
 if (password_verify($senha, $usuario['senha'])) {
     $data['mensagem'] = 'Usuário logado com sucesso, aguarde redirecionamento.';
     $data['alert'] = 'success';
-    $data['usuario'] = $usuario;
+
+    
+    $_SESSION['id_usuario'] = $usuario['id'];
+    $_SESSION['nome'] = $usuario['nome'];
+    $_SESSION['cpf'] = $usuario['cpf'];
+    $_SESSION['email'] = $usuario['email'];
+
     http_response_code(200);
 	echo json_encode($data);
 	exit;

@@ -101,8 +101,7 @@ include_once('bd/estados.php');
            <div class="form-group">
              <label for="estado">Estado:</label>
              <select name="estado" class="form-control" id="estado">
-               <option >
-                <option></option>
+                <option value="">Escolha</option>
              </select>
            </div>
          </div>
@@ -122,12 +121,20 @@ include_once('bd/estados.php');
 <?php 
 include_once('layout/footer.php');
 ?>
+<script src="js/estados.js" type="text/javascript"></script>
 <script>
   $(document).ready(function() {
     let procuraParametro = new URLSearchParams(window.location.search);
     if(procuraParametro.has('id') && procuraParametro.get('id') != '') {
       carregaDados(procuraParametro.get('id'));
     }
+
+    var laco_estados = '';
+    $.each(estados,function(index, el) {
+        laco_estados += `<option value="${el.sigla}">${el.sigla}</option>`; 
+    });
+    $('#estado').append(laco_estados);
+
   })
   function carregaDados(id) {
     $.ajax({

@@ -40,7 +40,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 	exit;
 }else if(isset($_GET['id']) && $_GET['acao'] == 'exibir' && $metodo == 'GET'){
 	$id = $_GET['id'];
-	if( $id == ''){
+	if( $id == '' !is_numeric($id)){
 		$data['mensagem'] = 'ID é obrigatório e numérico';
 		$data['alert'] = 'danger';
 		http_response_code(400);

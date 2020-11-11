@@ -1,7 +1,9 @@
-        </div>
+
+Deprecated: The each() function is deprecated. This message will be suppressed on further calls in C:\Users\trazo\AppData\Roaming\Sublime Text 3\Packages\PHPTools\php.tools\codeFormatter.php on line 54
+</div>
 
         </div>
-        
+
         </div>
 
       </div>
@@ -21,7 +23,7 @@
             </button>
           </div>
           <div class="modal-body" id="corpo-modal">
-            
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -50,17 +52,17 @@
       $('.fone').mask('(99) 99999-9999');
       $('.cep').mask('99999-999');
 
-      <?php if(isset($_GET['mensagem'])): ?>
-        setTimeout(function(){
+<?php if (isset($_GET['mensagem'])):?>
+setTimeout(function(){
           $('#alert-mensagem').fadeOut();
           window.location.href =  window.location.href.split("?")[0];
         }, 5000);
-     <?php endif; ?>
+<?php endif;?>
 
     setTimeout(function(){
       $('#mensagem').fadeOut();
     }, 5000);
-     
+
 
      $('.cep').on('change', function() {
       var cep = $(this).val();
@@ -108,7 +110,7 @@
         $('#carregando').fadeOut();
 
       });
-      
+
      })
 
      $('.cpf').on('change', function() {
@@ -126,20 +128,20 @@
      function validarcpf(numero) {
 
       numero = numero.replace(/[^\d]+/g,'');
-      if(numero == '') return false; 
+      if(numero == '') return false;
 
       // Elimina CPFs invalidos conhecidos
-        
-      if (numero.length != 11 || 
-      numero == "00000000000" || 
-      numero == "11111111111" || 
-      numero == "22222222222" || 
-      numero == "33333333333" || 
-      numero == "44444444444" || 
-      numero == "55555555555" || 
-      numero == "66666666666" || 
-      numero == "77777777777" || 
-      numero == "88888888888" || 
+
+      if (numero.length != 11 ||
+      numero == "00000000000" ||
+      numero == "11111111111" ||
+      numero == "22222222222" ||
+      numero == "33333333333" ||
+      numero == "44444444444" ||
+      numero == "55555555555" ||
+      numero == "66666666666" ||
+      numero == "77777777777" ||
+      numero == "88888888888" ||
       numero == "99999999999")
         return invalido = false;
 
@@ -148,6 +150,7 @@
       if (numero == "00000000000") return invalido = false;
 
       for (i=1; i<=9; i++) soma = soma + parseInt(numero.substring(i-1, i)) * (11 - i);
+
       resto = (soma * 10) % 11;
 
       if ((resto == 10) || (resto == 11))  resto = 0;
@@ -155,6 +158,7 @@
 
       soma = 0;
       for (i = 1; i <= 10; i++) soma = soma + parseInt(numero.substring(i-1, i)) * (12 - i);
+
       resto = (soma * 10) % 11;
 
       if ((resto == 10) || (resto == 11))  resto = 0;

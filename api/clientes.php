@@ -9,8 +9,8 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 
 if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 	$id = $_GET['id'];
-	if($id == ''){
-		$data['mensagem'] = 'ID e obrigatório';
+	if($id == '' || !is_numeric($id)){
+		$data['mensagem'] = 'ID e obrigatório e deve ser numérico';
 		$data['alert'] = 'danger';
 		http_response_code(400);
 		echo json_encode($data);
@@ -28,7 +28,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 
 }if($acao == 'listar' && $metodo == 'GET'){
 
-	$sql = 'SELECT * FROM clientes';
+	$sql = "SELECT id, nome, cpf, telefone, email, convenio FROM clientes";
 	$qr = mysqli_query($conexao, $sql);
 	$clientes = mysqli_fetch_all($qr, MYSQLI_ASSOC);
 
@@ -41,16 +41,24 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 }else if(isset($_GET['id']) && $_GET['acao'] == 'exibir' && $metodo == 'GET'){
 	$id = $_GET['id'];
 	if( $id == ''){
-		$data['mensagem'] = 'ID é obrigatório';
+		$data['mensagem'] = 'ID é obrigatório e numérico';
 		$data['alert'] = 'danger';
 		http_response_code(400);
 		echo json_encode($data);
 		exit;
 	}
 
-	$sql = "SELECT nome, cpf, email, telefone, convenio, FROM clientes";
+	$sql = "SELECT * FROM clientes 
+		WHERE id = {$id}";
 	$qr = mysqli_query($conexao, $sql);
 	$clientes = mysqli_fetch_assoc($qr);
+	if($clientes == null) {
+		$data['mensagem'] = 'Registro não encontrado';
+		$data['alert'] = 'danger';
+		http_response_code(400);
+		echo json_encode($data);
+		exit;
+	}
 
 	$data['mensagem'] = 'Dados carregados com sucesso!';
 	$data['alert'] = 'success';
@@ -58,7 +66,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 	http_response_code(200);
 	echo json_encode($data);
 	exit;
-}else if($acao == 'salvar' && $metodo = 'POST'){
+}else if($acao == 'salvar' && $metodo == 'POST'){
 
 	$nome = $_POST['nome'];
 	$cpf = $_POST['cpf'];
@@ -77,7 +85,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 	$id = $_POST['id'];
 
 	if($nome == '' || $email == '' || $cpf == '') {
-		$mensagem = "Nome, Email e CPF são obregatórios!";
+		$mensagem = "Nome, Email e CPF são obrigatórios!";
 		$alert = 'danger';
 		exit;
 
@@ -99,6 +107,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 				cidade,
 				estado,
 				usuario_id) VALUES ('$nome','$cpf','$email','$telefone','$convenio','$num_convenio','$cep','$logradouro','$numero','$complemento','$bairro','$cidade','$estado','$usuario_id');";
+
 	}else {
 		$sql = "UPDATE clientes SET 
 				nome = '{$nome}',
@@ -118,23 +127,28 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 				WHERE id = '{$id}'";
 	}
 
-	if(mysqli_query($conexao, $sql)){
-		$mensagem = 'Salvo com sucesso!';
-		$alert = 'seccess';
+	if(mysqli_query($conexao, $sql)) {
+		$data['mensagem'] = 'Salvo com sucesso!';
+		$data['alert'] = 'success';
 
 		if($id == ''){
 			$id = mysqli_insert_id($conexao);
 		}
 
 	}else{
-		$mensagem = 'Error ao salvar' . mysqli_error($conexao);
-		$alert = 'danger';
+		$data['mensagem'] = 'Error ao salvar ' . mysqli_error($conexao);
+		$data['alert'] = 'danger';
+		http_response_code(400);
+		echo json_encode($data);
+		exit;
 	}
 
-	$data['mensagem'] = $mensagem;
-	$data['alert'] = $alert;
-	$data['dados'] = $id;
-	http_response_code(200);
+	$sql_dados = "SELECT * FROM clientes WHERE id = ". $id;
+	$qr_dados = mysqli_query($conexao, $sql_dados);
+	$clientes = mysqli_fetch_assoc($qr_dados);
+
+	$data['dados'] = $clientes;
+	http_response_code(201);
 	echo json_encode($data);
 	exit;
 

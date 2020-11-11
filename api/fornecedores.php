@@ -15,7 +15,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 		exit;
 	}
 
-	$sql = "DELETE FROM categoria WHERE id = {$id}";
+	$sql = "DELETE FROM fornecedores WHERE id = {$id}";
 	$qr = mysqli_query($conexao, $sql);
 
 	$data['mensagem'] = 'Excluído com sucesso!';
@@ -25,55 +25,74 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 	exit;
 }if($acao == 'listar' && $metodo == 'GET') {
 	
-	$sql = "SELECT * FROM categoria";
+	$sql = "SELECT * FROM fornecedores";
 	$qr = mysqli_query($conexao, $sql);
-	$categorias = mysqli_fetch_all($qr, MYSQLI_ASSOC);
+	$fornecedores = mysqli_fetch_all($qr, MYSQLI_ASSOC);
 
 	$data['mensagem'] = 'Dados carregados com sucesso!';
     $data['alert'] = 'success';
-    $data['dados'] = $categorias;
+    $data['dados'] = $fornecedores;
 	http_response_code(200);
 	echo json_encode($data);
 	exit;
 } else if(isset($_GET['id']) && $_GET['acao'] == 'exibir' && $metodo == 'GET') {
 	$id = $_GET['id'];
-	if($id == '' || !is_numeric($id)) {
-		$data['mensagem'] = 'ID é obrigatório e numérico';
+	if($id == '') {
+		$data['mensagem'] = 'ID é obrigatório';
 	    $data['alert'] = 'danger';
 		http_response_code(400);
 		echo json_encode($data);
 		exit;
 	}
-	$sql = "SELECT id, categoria, tipo FROM categoria WHERE id = {$id}";
+	$sql = "SELECT * FROM fornecedores WHERE id = {$id}";
 	$qr = mysqli_query($conexao, $sql);
-	$categoria = mysqli_fetch_assoc($qr);
-	if($categoria == null) {
-		$data['mensagem'] = 'Registro não encontrado';
-	    $data['alert'] = 'danger';
-		http_response_code(400);
-		echo json_encode($data);
-		exit;
-	}
+	$fornecedor = mysqli_fetch_assoc($qr);
 
 	$data['mensagem'] = 'Dados carregados com sucesso!';
     $data['alert'] = 'success';
-    $data['dados'] = $categoria;
+    $data['dados'] = $fornecedor;
 	http_response_code(200);
 	echo json_encode($data);
 	exit;
 }else if($acao == 'salvar' && $metodo == 'POST') {
 
-	$categoria = $_POST['categoria'];
-	$tipo = $_POST['tipo'];
+	$cnpj = $_POST['cnpj'];
+	$fantasia = $_POST['fantasia'];
+	$razao_social = $_POST['razao_social'];
+	$telefone = $_POST['telefone'];
+	$email = $_POST['email'];
+	$nome_contato = $_POST['nome_contato'];
+	$cep = $_POST['cep'];
+	$logradouro = $_POST['logradouro'];
+	$numero = $_POST['numero'];
+	$complemento = $_POST['complemento'];
+	$bairro = $_POST['bairro'];
+	$cidade = $_POST['cidade'];
+	$estado = $_POST['estado'];
 	$id = $_POST['id'];
 
 	if($id == '') {
-		$sql = "INSERT INTO categoria (categoria, tipo) VALUES ('$categoria', '$tipo');";
+		$sql = "INSERT INTO fornecedores 
+			(razao_social, fantasia, cnpj, email, telefone, nome_contato, cep ,logradouro, numero, complemento, bairro, cidade, estado,usuario_id) 
+			VALUES
+			('$razao_social', '$fantasia','$cnpj', '$email', '$telefone', '$nome_contato', '$cep','$logradouro','$numero', '$complemento', '$bairro', '$cidade', '$estado','1');";
+
 	} else {
-		$sql = "UPDATE categoria SET 
-					categoria = '{$categoria}', 
-					tipo = '{$tipo}'
-				WHERE id = {$id}";
+		$sql = "UPDATE fornecedores SET 
+					razao_social = '{$razao_social}',
+					fantasia = '{$fantasia}',
+					cnpj = '{$cnpj}',
+					email = '{$email}',
+					telefone = '{$telefone}',
+					nome_contato = '{$nome_contato}',
+					cep = '{$cep}',
+					logradouro = '{$logradouro}',
+					numero = '{$numero}' ,
+					complemento = '{$complemento}' ,
+					bairro = '{$bairro}' ,
+					cidade = '{$cidade}',
+					estado = '{$estado}'
+				WHERE id = {$id};";
 	}
 
 	if(mysqli_query($conexao, $sql)) {
@@ -92,11 +111,11 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 		exit;
 	}
 
-	$sql_dados = "SELECT * FROM categoria WHERE id = " . $id;
+	$sql_dados = "SELECT * FROM fornecedores WHERE id = " . $id;
 	$qr_dados = mysqli_query($conexao, $sql_dados);
-	$categoria = mysqli_fetch_assoc($qr_dados);
+	$fornecedor = mysqli_fetch_assoc($qr_dados);
 
-    $data['dados'] = $categoria;
+    $data['dados'] = $fornecedor;
 	http_response_code(201);
 	echo json_encode($data);
 	exit;

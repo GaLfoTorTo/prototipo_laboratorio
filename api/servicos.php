@@ -86,7 +86,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 		              categoria_id = '{$categoria_id}'
 		              WHERE id = {$id}";
 	}
-
+	
 	if(mysqli_query($conexao, $sql)) {
 		$mensagem = 'Salvo com sucesso!';
 		$alert = 'success';

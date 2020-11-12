@@ -1,21 +1,22 @@
-<?php 
-include_once('layout/header.php');
-include_once('layout/menu.php');
-include_once('layout/sidebar.php');
+
+Deprecated: The each() function is deprecated. This message will be suppressed on further calls in C:\Users\trazo\AppData\Roaming\Sublime Text 3\Packages\PHPTools\php.tools\codeFormatter.php on line 54
+<?php
+include_once ('layout/header.php');
+include_once ('layout/menu.php');
+include_once ('layout/sidebar.php');
 
 ?>
 <div class="col">
-<h2 class="titulo">Gestão de clientes</h2>
-<span class="badge badge-info totais">Total: <span id="total"></span><?php //echo count($clientes); ?></span>
-<div class="clear"></div>
+  <h2 class="titulo">Categorias</h2>
+  <span class="badge badge-info totais">Total: <span id="total"></span> <?php //echo count($categorias); ?></span>
+  <div class="clear"></div>
 
-<?php include_once('layout/mensagens.php'); ?>
-
-  <div class="card">
+<?php include_once ('layout/mensagens.php');?>
+<div class="card">
     <div class="card-body">
       <span id="mensagem"></span>
-      <a href="form_cliente.php" class="btn btn-primary" style="float: right">
-        <i class="fas fa-user"></i> Novo cliente
+      <a href="form_categorias.php" class="btn btn-primary" style="float: right">
+        <i class="fas fa-user"></i> Nova categoria
       </a>
       <a href="javascript:history.back(-1)" class="btn btn-secondary voltar">
         <i class="fas fa-arrow-left"></i> Voltar
@@ -23,24 +24,19 @@ include_once('layout/sidebar.php');
       <br>
       <br>
       <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Telefone</th>
-            <th>E-mail</th>
-            <th>Convênio</th>
-            <th class="acao">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    
-   
+      <thead>
+        <tr>
+        <th>Categoria</th>
+        <th>Tipo</th>
+        <th class="acao">Ações</th>
+      </tr>
+      </thead>
+    <tbody>
+    </tbody>
   </table>
 
     <div class="alert alert-info" id="mensagem-vazio" style="display: none;">Nenhuma informação encontrada.</div>
+
 
   <nav aria-label="Navegação de página exemplo">
     <ul class="pagination">
@@ -52,112 +48,115 @@ include_once('layout/sidebar.php');
       <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
     </ul>
   </nav>
+    </div>
   </div>
 </div>
-</div>
-
-<?php 
-include_once('layout/footer.php');
+<?php
+include_once ('layout/footer.php');
 ?>
-
 <script>
+  var algumacoisa
   $(document).ready(function() {
     carregaDados();
   });
   function verDados(id) {
     $.ajax({
-      url: `api/clientes.php?id=${id}&acao=exibir`,
+      url: `api/categorias.php?id=${id}&acao=exibir`,
       type: 'GET',
       dataType: 'json',
       beforeSend: function() {
         $('#carregando').fadeIn();
       }
     })
-    .done(function(data){
+    .done(function(data) {
       var texto = '';
       Object.keys(data.dados).forEach(function(index){
-          var th = index.replace('_', ' ');
-          texto += `<p><strong style="text-transform: capitalize">${th}</strong>: ${data.dados[index] ?? ''}</p>`;
-      }); 
+        var th = index.replace('_', ' ');
+        texto += `<p><strong style="text-transform: capitalize">${th}: </strong> ${data.dados[index] ?? ''}</p>`;
+      })
 
-      $('#titulo-modal').html(`Cliente: ${data.dados.nome}`);
+      $('#titulo-modal').html(`Categoria: ${data.dados.categoria}` );
       $('#corpo-modal').html(texto);
+
     })
-    .fail(function(){
-      aler('Dados nao encontrados');
+    .fail(function() {
+      alert('Erro ao buscar os dados.')
     })
-    .always(function(){
+    .always(function() {
       $('#carregando').fadeOut();
     });
+
   }
 
-  function deletarDados(id){
-    if(confirm('Deseja realmente excluir')){
+  function deletarDados(id) {
+    if(confirm('Deseja realmente excluir?')){
       $.ajax({
-        url: `api/clientes.php?acao=deletar&id=` + id,
+        url: 'api/categorias.php?acao=deletar&id=' + id,
         type: 'DELETE',
-        datatype: 'json',
-        beforeSend: function(){
+        dataType: 'json',
+        beforeSend: function() {
           $('#carregando').fadeIn();
         }
       })
-      .done(function(data){
+      .done(function(data) {
         $('#mensagem').html(retornaMensagemAlert(data.mensagem, data.alert));
-        carregaDados();
+          carregaDados();
+        /*setTimeout(function() {
+
+        }, 3000);*/
       })
-      .fail(function(data){
+      .fail(function(data) {
         $('#mensagem').html(retornaMensagemAlert(data.mensagem, data.alert));
       })
-      .always(function(){
+      .always(function() {
         $('#carregando').fadeOut();
       });
     }
-  }
 
-  function carregaDados(){
+  }
+  function carregaDados() {
     $.ajax({
-      url: 'api/clientes.php?acao=listar',
+      url: 'api/categorias.php?acao=listar',
       type: 'GET',
       dataType: 'json',
-      beforeSend: function(){
-        $('#carregando').fadeIn();
-      }
+     beforeSend: function() {
+       $('#carregando').fadeIn();
+     }
     })
-    .done(function(data){
-      if(data.dados.length < 1){
-        $('#mensagens-vazio').fadeIn();
+    .done(function(data) {
+      if(data.dados.length < 1) {
+        $('#mensagem-vazio').fadeIn();
       }
       $('#total').html(data.dados.length);
       var tbody = '';
       $.each(data.dados,function(index, value){
         tbody += `<tr>
-                  <td>${value.id}</td>
-                  <td>${value.nome}</td>
-                  <td>${value.cpf}</td>
-                  <td>${value.telefone}</td>
-                  <td>${value.email}</td>
-                  <td>${value.convenio}</td>
+                  <td>${value.categoria}</td>
+                  <td>${value.tipo}</td>
+
                   <td>
                     <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#modalVerDados" onclick="verDados(${value.id})">
                       <i class="fas fa-eye"></i>
                     </a>
-                    <a href="form_cliente.php?id=${value.id}" class="btn btn-warning">
+                    <a href="form_categorias.php?id=${value.id}" class="btn btn-warning">
                       <i class="fas fa-edit"></i>
                     </a>
                     <a href="#" class="btn btn-danger" onclick="deletarDados(${value.id})">
                       <i class="fas fa-trash"></i>
                     </a>
                   </td>
-                  </tr>`;
+
+                </tr>`;
       });
 
-      $('tbody').html(tbody); 
+      $('tbody').html(tbody);
     })
-    .fail(function(data){
+    .fail(function(data) {
       console.log(data);
     })
-    .always(function(){
+    .always(function() {
       $('#carregando').fadeOut();
     });
+
   }
 </script>

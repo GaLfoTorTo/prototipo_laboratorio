@@ -17,7 +17,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 		exit;
 	}
 
-	$sql = "DELETE FROM clientes WHERE id = {$id}";
+	$sql = "DELETE FROM colaboradores WHERE id = {$id}";
 	$qr = mysqli_query($conexao, $sql);
 
 	$data['mensagem'] = 'Dados excluídos com sucesso!';
@@ -28,13 +28,13 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 
 }if($acao == 'listar' && $metodo == 'GET'){
 
-	$sql = "SELECT id, nome, cpf, telefone, email, convenio FROM clientes";
+	$sql = "SELECT id, nome, cpf, email, telefone FROM colaboradores";
 	$qr = mysqli_query($conexao, $sql);
-	$clientes = mysqli_fetch_all($qr, MYSQLI_ASSOC);
+	$colaboradores = mysqli_fetch_all($qr, MYSQLI_ASSOC);
 
 	$data['mensagem'] = 'Dados carregados com sucesso!';
 	$data['alert'] = 'success';
-	$data['dados'] = $clientes;
+	$data['dados'] = $colaboradores;
 	http_response_code(200);
 	echo json_encode($data);
 	exit;
@@ -48,11 +48,11 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 		exit;
 	}
 
-	$sql = "SELECT * FROM clientes 
+	$sql = "SELECT * FROM colaboradores 
 		WHERE id = {$id}";
 	$qr = mysqli_query($conexao, $sql);
-	$clientes = mysqli_fetch_assoc($qr);
-	if($clientes == null) {
+	$colaboradores = mysqli_fetch_assoc($qr);
+	if($colaboradores == null) {
 		$data['mensagem'] = 'Registro não encontrado';
 		$data['alert'] = 'danger';
 		http_response_code(400);
@@ -62,70 +62,84 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 
 	$data['mensagem'] = 'Dados carregados com sucesso!';
 	$data['alert'] = 'success';
-	$data['dados'] = $clientes;
+	$data['dados'] = $colaboradores;
 	http_response_code(200);
 	echo json_encode($data);
 	exit;
+
 }else if($acao == 'salvar' && $metodo == 'POST'){
 
-	$nome = $_POST['nome'];
-	$cpf = $_POST['cpf'];
-	$email = $_POST['email'];
-	$telefone = $_POST['telefone'];
-	$convenio = $_POST['convenio'];
-	$num_convenio = $_POST['num_convenio'];
-	$cep = $_POST['cep'];
-	$logradouro = $_POST['logradouro'];
-	$numero = $_POST['numero'];
-	$complemento = $_POST['complemento'];
-	$bairro = $_POST['bairro'];
-	$cidade = $_POST['cidade'];
-	$estado = $_POST['estado'];
-	$usuario_id = $_POST['usuario_id'];
-	$id = $_POST['id'];
+	$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+	echo ($senha);exit;
 
-	if($nome == '' || $email == '' || $cpf == '') {
-		$mensagem = "Nome, Email e CPF são obrigatórios!";
-		$alert = 'danger';
+	if($_POST['senha'] != '' && $_POST['senha'] != $_POST['confirma_senha']) {
+		$data['mensagem'] = "A senha e a confirmação devem ser iguais";
+		$data['alert'] = 'danger';
+		http_response_code(400);
+		echo json_encode($data);
 		exit;
+	}else {
+
+		$nome = $_POST['nome'];
+		$cpf = $_POST['cpf'];
+		$email = $_POST['email'];
+		$telefone = $_POST['telefone'];
+		$cep = $_POST['cep'];
+		$logradouro = $_POST['logradouro'];
+		$numero = $_POST['numero'];
+		$complemento = $_POST['complemento'];
+		$bairro = $_POST['bairro'];
+		$cidade = $_POST['cidade'];
+		$estado = $_POST['estado'];
+		$id = $_POST['id'];
+
+
+		if($nome == '' || $cpf == '' || $email == '' ) {
+			$data['mensagem'] = "Nome, CPF, email e senha são obrigatórios!";
+			$data['alert'] = 'danger';
+			http_response_code(400);
+			echo json_encode($data);
+			exit;
 
 	}
 
 	if($id == ''){
-		$sql = "INSERT INTO clientes 
-				(nome,
-				cpf,
-				email,
-				telefone,
-				convenio,
-				num_convenio,
-				cep,
-				logradouro,
-				numero,
-				complemento,
-				bairro,
-				cidade,
-				estado,
-				usuario_id) VALUES ('$nome','$cpf','$email','$telefone','$convenio','$num_convenio','$cep','$logradouro','$numero','$complemento','$bairro','$cidade','$estado','$usuario_id');";
-
-	}else {
-		$sql = "UPDATE clientes SET 
+		$sql = "INSERT INTO colaboradores 
+			(id,
+			nome, 
+			cpf, 
+			email, 
+			telefone, 
+			cep, 
+			logradouro, 
+			numero, 
+			complemento, 
+			bairro, 
+			cidade, 
+			estado, 
+			senha) 
+			VALUES
+			('$id','$nome', '$cpf', '$email', '$telefone', '$cep','$logradouro','$numero', '$complemento', '$bairro', '$cidade', '$estado', '$senha');";
+		}else {
+			if($_POST['senha'] != '') {
+				$string_senha = ", senha = '{$senha}' ";
+			} else {
+				$string_senha = '';
+			}
+			$sql = "UPDATE colaboradores SET 
 				nome = '{$nome}',
 				cpf = '{$cpf}',
 				email = '{$email}',
-				telefone = '{$telefone}',
-				convenio = '{$convenio}',
-				num_convenio = '{$num_convenio}',
 				cep = '{$cep}',
 				logradouro = '{$logradouro}',
-				numero = '{$numero}',
-				complemento = '{$complemento}',
-				bairro = '{$bairro}',
+				numero = '{$numero}' ,
+				complemento = '{$complemento}' ,
+				bairro = '{$bairro}' ,
 				cidade = '{$cidade}',
-				estado = '{$estado}',
-				usuario_id = '{$usuario_id}'
-				WHERE id = '{$id}'";
-	}
+				estado = '{$estado}'
+				{$string_senha}
+				WHERE id = {$id};";
+		}
 
 	if(mysqli_query($conexao, $sql)) {
 		$data['mensagem'] = 'Salvo com sucesso!';
@@ -143,11 +157,11 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 		exit;
 	}
 
-	$sql_dados = "SELECT * FROM clientes WHERE id = ". $id;
+	$sql_dados = "SELECT * FROM colaboradores WHERE id = ". $id;
 	$qr_dados = mysqli_query($conexao, $sql_dados);
-	$clientes = mysqli_fetch_assoc($qr_dados);
+	$colaboradores = mysqli_fetch_assoc($qr_dados);
 
-	$data['dados'] = $clientes;
+	$data['dados'] = $colaboradores;
 	http_response_code(201);
 	echo json_encode($data);
 	exit;

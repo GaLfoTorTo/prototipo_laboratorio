@@ -16,21 +16,21 @@ include_once('bd/estados.php');
         <div class="col-md-4 col-sm-12">
           <div class="form-group">
              <label for="email">E-mail:</label>
-             <input type="email" name="email" id="email" class="form-control" required>
+             <input type="email" name="email" id="email" class="form-control" >
 
-             <input type="hidden" name="id" readonly>
+             <input type="hidden" name="id" id="id" >
            </div>
         </div>
         <div class="col-md-4 col-sm-12">
           <div class="form-group">
             <label for="senha">Senha</label>
-            <input type="password" name="senha" placeholder="Informe uma senha" class="form-control" required>
+            <input type="password" name="senha" id="senha" placeholder="Informe uma senha" class="form-control" >
           </div>
         </div>
         <div class="col-md-4 col-sm-12">
           <div class="form-group">
             <label for="senha">Confirmação de Senha</label>
-            <input type="password" name="confirma_senha" placeholder="Confirme sua senha" class="form-control" required>
+            <input type="password" name="confirma_senha" id="confirma_senha" placeholder="Confirme sua senha" class="form-control" >
           </div>
         </div>
       </div>
@@ -42,13 +42,13 @@ include_once('bd/estados.php');
          <div class="col-md-3 col-sm-12">
            <div class="form-group">
              <label for="cpf">CPF:</label>
-             <input type="text" name="cpf" id="cpf" class="form-control cpf" required >
+             <input type="text" name="cpf" id="cpf" class="form-control cpf"  >
            </div>
          </div>
          <div class="col-md-9 col-sm-12">
            <div class="form-group">
              <label for="nome">Nome:</label>
-             <input type="text" name="nome" id="nome" class="form-control" required >
+             <input type="text" name="nome" id="nome" class="form-control"  >
            </div>
          </div>
        </div>
@@ -154,8 +154,6 @@ include_once('layout/footer.php');
     })
     .done(function(data){
       $('#id').val(data.dados.id);
-      $('#senha').val(data.dados.senha);
-      $('#confirma_senha').val(data.dados.confirma_senha);
       $('#nome').val(data.dados.nome);
       $('#cpf').val(data.dados.cpf);
       $('#email').val(data.dados.email);
@@ -193,7 +191,7 @@ include_once('layout/footer.php');
     var cidade = $('#cidade').val();
     var estado = $('#estado').val();
 
-    if(nome == '' || cpf == '' || email == '' || senha == '' ) {
+    if(nome == '' || cpf == '' || email == '' || (senha == '' && id == '') ) {
       alert('Nomen CPF, E-mail e Senha são obrigatórios!');
       $('#email').focus();
       return false;

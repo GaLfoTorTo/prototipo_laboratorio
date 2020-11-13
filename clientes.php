@@ -23,19 +23,19 @@ include_once('layout/sidebar.php');
       <br>
       <br>
       <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Telefone</th>
-            <th>E-mail</th>
-            <th>Convênio</th>
-            <th class="acao">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Telefone</th>
+        <th>E-mail</th>
+        <th>Convênio</th>
+        <th class="acao">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
     
    
   </table>

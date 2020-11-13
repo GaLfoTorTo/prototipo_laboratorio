@@ -71,8 +71,10 @@ include_once('layout/footer.php');
     .done(function(data) {
       var texto = '';
       Object.keys(data.dados).forEach(function(index){
+          if(index != 'senha') {
           var th = index.replace('_', ' ');
-          texto += `<p><strong style="text-transform: capitalize">${th}</strong>: ${data.dados[index] ?? ''}</p>`;
+            texto += `<p><strong style="text-transform: capitalize">${th}</strong>: ${data.dados[index] ?? ''}</p>`;
+          }
       });
 
        $('#titulo-modal').html(`Colaborador:${data.dados.nome}`);

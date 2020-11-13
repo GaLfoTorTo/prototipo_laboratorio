@@ -70,7 +70,6 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 }else if($acao == 'salvar' && $metodo == 'POST'){
 
 	$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-	echo ($senha);exit;
 
 	if($_POST['senha'] != '' && $_POST['senha'] != $_POST['confirma_senha']) {
 		$data['mensagem'] = "A senha e a confirmação devem ser iguais";
@@ -100,13 +99,13 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 			http_response_code(400);
 			echo json_encode($data);
 			exit;
+		}
 
 	}
 
 	if($id == ''){
 		$sql = "INSERT INTO colaboradores 
-			(id,
-			nome, 
+			(nome, 
 			cpf, 
 			email, 
 			telefone, 
@@ -119,7 +118,7 @@ if(isset($_GET['id']) && $acao == 'deletar' && $metodo == 'DELETE') {
 			estado, 
 			senha) 
 			VALUES
-			('$id','$nome', '$cpf', '$email', '$telefone', '$cep','$logradouro','$numero', '$complemento', '$bairro', '$cidade', '$estado', '$senha');";
+			('$nome', '$cpf', '$email', '$telefone', '$cep','$logradouro','$numero', '$complemento', '$bairro', '$cidade', '$estado', '$senha');";
 		}else {
 			if($_POST['senha'] != '') {
 				$string_senha = ", senha = '{$senha}' ";
